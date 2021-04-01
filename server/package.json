@@ -1,0 +1,15 @@
+{
+  "name": "mystery-company-challenge-server",
+  "version": "1.0.0",
+  "description": "Server files for the Mystery Company coding test",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "backend",
+    "server"
+  ],
+  "author": "Reuben Smith",
+  "license": "ISC"
+}

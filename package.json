@@ -1,0 +1,25 @@
+{
+  "name": "mystery-company-challenge",
+  "version": "1.0.0",
+  "description": "Mystery Company coding test",
+  "main": "index.js",
+  "scripts": {
+    "client": "cd client/ && npm run start:dev",
+    "server": "cd server/ && npm run server:dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:reubennn/mystery-company-challenge.git"
+  },
+  "keywords": [
+    "react",
+    "postgresql",
+    "javascript"
+  ],
+  "author": "Reuben Smith",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/reubennn/mystery-company-challenge/issues"
+  },
+  "homepage": "https://github.com/reubennn/mystery-company-challenge#readme"
+}
