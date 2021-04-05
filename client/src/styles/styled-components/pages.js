@@ -7,7 +7,7 @@ import styled from "styled-components";
 export const MainPageBody = styled.main`
     text-align: left;
     width: 100%;
-    margin: 0;
+    margin: 1rem auto;
 
     /* Ensures our content remains in a logical order */
     display: flex;

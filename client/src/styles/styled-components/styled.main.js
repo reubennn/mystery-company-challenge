@@ -9,11 +9,12 @@
  * React components and styled-components (which are called using <S.___>).
  *
  * @example
- * // Adds Feature Text styled-component to JSX in React App
- * import * as S from "../styles/styled-components/styled";
- * <S.FeatureText >Hello, World!</S.FeatureText>
+ * // Adds Header styled-component to JSX in React App
+ * import * as S from "../styles/styled-components/styled.main";
+ * <S.Header >Hello, World!</S.Header>
  */
 
 export * from "./app";
-export * from "./pages";
 export * from "./general";
+export * from "./pages";
+export * from "./forms";
