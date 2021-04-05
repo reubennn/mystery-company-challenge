@@ -51,7 +51,7 @@ export const Header = styled.h1.attrs((props) => ({
     padding: ${props.bgColor !== "transparent" ? "0.5rem 1rem" : "0"};
     border-radius: ${props.bgColor !== "transparent" ? "0.2rem" : " 0"};
 
-    &.form {
+    &.no-margin-top {
         margin-top: 0;
     }
 `);
@@ -75,10 +75,8 @@ export const Button = styled.button.attrs((props) => ({
     ${color.grey.shade.darker + transparency.x50};
     padding: 0.6rem 1.7rem;
     display: block;
-    margin: 1rem auto;
+    margin: 2rem auto 1rem auto;
     border-radius: ${(props) => props.$radius};
-    margin-left: auto;
-    margin-right: auto;
     transition: ease-in-out 0.25s;
 
     &:hover {
@@ -90,4 +88,17 @@ export const Button = styled.button.attrs((props) => ({
         background-color: ${color.blue.darker};
         transition: linear 0.05s;
     }
+`;
+
+/**
+ * Center In Viewport Component.
+ *
+ * For positioning an element in the center of the viewport.
+ */
+export const CenterInViewport = styled.div`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
 `;

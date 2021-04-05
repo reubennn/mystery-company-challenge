@@ -15,6 +15,7 @@
  */
 
 export * from "./app";
+export * from "./navbar";
 export * from "./general";
 export * from "./pages";
 export * from "./forms";

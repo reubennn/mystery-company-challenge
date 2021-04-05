@@ -219,7 +219,7 @@ const Form = () => {
 
     return (
         <S.Form onSubmit={(e) => handleSubmitEvent(e)}>
-            <S.Header as="h2" fontSize="1.4rem" className="form">
+            <S.Header as="h2" fontSize="1.4rem" className="no-margin-top">
                 Please enter your details
             </S.Header>
             <S.Label className="uppercase">Name:</S.Label>
