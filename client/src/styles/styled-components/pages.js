@@ -7,13 +7,13 @@ import styled from "styled-components";
 export const MainPageBody = styled.main`
     text-align: left;
     width: 100%;
-    margin: 1rem auto;
+    min-height: 100vh;
+    margin: 3rem auto;
 
     /* Ensures our content remains in a logical order */
     display: flex;
     flex-direction: column;
 
-    /** Ensure content is centred horizontally and vertically */
-    justify-content: center;
+    /** Ensure content is centred vertically */
     align-items: center;
 `;

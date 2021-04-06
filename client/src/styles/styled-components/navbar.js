@@ -7,7 +7,8 @@ import { color, transparency } from "./colors";
  * Main navbar component for the app.
  */
 export const Navbar = styled.nav`
-    position: fixed;
+    /** Keep the navbar at the top of the page */
+    position: absolute;
     top: 1rem;
     right: 3rem;
 `;

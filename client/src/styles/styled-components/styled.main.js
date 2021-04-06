@@ -19,3 +19,4 @@ export * from "./navbar";
 export * from "./general";
 export * from "./pages";
 export * from "./forms";
+export * from "./table";
