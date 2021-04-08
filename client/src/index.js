@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import "whatwg-fetch"; // Adds fetch support for IE browser.
 
 /** Import the main React Application */
 import App from "./App";
