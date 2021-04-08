@@ -113,6 +113,18 @@ export const Button = styled.button.attrs((props) => ({
             background-color: ${color.red.darker};
         }
     }
+
+    &.red {
+        background-color: ${color.red.neutral};
+
+        &:hover {
+            background-color: ${color.red.dark};
+        }
+
+        &:active {
+            background-color: ${color.red.darker};
+        }
+    }
 `;
 
 /**

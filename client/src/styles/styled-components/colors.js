@@ -39,6 +39,15 @@ export const color = {
         darker: "#3273c2",
         darkest: "#1f4879",
     },
+    green: {
+        lightest: "#abf0b1",
+        lighter: "#90eb97",
+        light: "#58e064",
+        neutral: "#20d630",
+        dark: "#1cbb2a",
+        darker: "#14861e",
+        darkest: "#0c5012",
+    },
     purple: {
         lightest: "#db9ffc",
         lighter: "#c565fb",
