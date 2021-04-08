@@ -113,6 +113,7 @@ export const getMessage = async (req, res) => {
 export const addEntry = async (req, res) => {
     /** Destructor the body parameters */
     const { name, email, pin, message } = req.body;
+    const NAME_MOD = name.replace("+", " ");
 
     let nextId;
     /**
@@ -149,7 +150,7 @@ export const addEntry = async (req, res) => {
     const COLUMNS = "(id, name, email, pin, message, created)";
 
     /** Generate the VALUES string with the data */
-    const valuesArr = [nextId, name, email, pin, message, DATE_NOW];
+    const valuesArr = [nextId, NAME_MOD, email, pin, message, DATE_NOW];
     const VALUES = "'" + valuesArr.join("', '") + "'";
 
     /** Insert the values into the users table */
