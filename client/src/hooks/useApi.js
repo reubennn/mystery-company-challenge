@@ -47,9 +47,15 @@ const useApi = (initialUrl, initialOptions = {}) => {
     };
     const [state, setState] = useState(initialState);
     /** Any options to pass in the request */
-    const [options, setOptions] = useState(initialOptions);
+    const [options, setOptions] = useState({
+        current: initialOptions,
+        prev: initialOptions,
+    });
     /** The URL for the request */
-    const [url, setUrl] = useState(initialUrl);
+    const [url, setUrl] = useState({
+        current: initialUrl,
+        prev: initialUrl,
+    });
     /** Flag used to trigger an API call */
     const [callApi, setCallApi] = useState(false);
 
@@ -93,9 +99,9 @@ const useApi = (initialUrl, initialOptions = {}) => {
                      * Only add the headers to the response if they
                      * have been assigned.
                      */
-                    const headers = options.headers !== undefined ?
+                    const headers = options.current.headers !== undefined ?
                         {
-                            ...options.headers,
+                            ...options.current.headers,
                         } : {
                             "Content-Type": "application/json",
                         };
@@ -103,9 +109,9 @@ const useApi = (initialUrl, initialOptions = {}) => {
                         await handleFetchWithController(
                             controller, async (controller) => {
                                 return await fetch(
-                                    url,
+                                    url.current,
                                     {
-                                        ...options,
+                                        ...options.current,
                                         headers: headers,
                                         signal: controller.signal,
                                     },
@@ -164,12 +170,14 @@ const useApi = (initialUrl, initialOptions = {}) => {
     /**
      * useEffect called when the HTTP options have been updated.
      *
+     * - Perform a check to make sure the previous options are not
+     * the same as the current options.
      * - Options are only updated when apiRequestWithOptions is called.
      * - So we need to trigger the API call as soon as the options state
      * has been updated.
      */
     useEffect(() => {
-        if (options !== initialOptions) {
+        if (options.current !== options.prev) {
             triggerApiCall();
         }
     }, [options]);
@@ -177,12 +185,12 @@ const useApi = (initialUrl, initialOptions = {}) => {
     /**
      * useEffect called when the HTTP options have been updated.
      *
-     * - Options are only updated when apiRequestWithOptions is called.
-     * - So we need to trigger the API call as soon as the options state
-     * has been updated.
+     * - URL is only updated when apiRequestWithUrl is called.
+     * - So we need to trigger the API call as soon as the URL state
+     * has been updated and does not match the previous value.
      */
     useEffect(() => {
-        if (url !== initialUrl) {
+        if (url.current !== url.prev) {
             triggerApiCall();
         }
     }, [url]);
@@ -201,11 +209,19 @@ const useApi = (initialUrl, initialOptions = {}) => {
     /**
      * Function which updates the HTTP options.
      *
-     * @param {Object} options HTTP request options
+     * - We want to store the previous options too,
+     * so we can compare these later on.
+     *
+     * @param {Object} options HTTP request options to update
      */
     const updateOptions = (options) => {
         if (isMounted.current) {
-            setOptions(options);
+            setOptions((prevState) => {
+                return {
+                    prev: { ...prevState.current },
+                    current: options,
+                };
+            });
         }
     };
 
@@ -216,7 +232,12 @@ const useApi = (initialUrl, initialOptions = {}) => {
      */
     const updateUrl = (url) => {
         if (isMounted.current) {
-            setUrl(url);
+            setUrl((prevState) => {
+                return {
+                    prev: { ...prevState.current },
+                    current: url,
+                };
+            });
         }
     };
 
