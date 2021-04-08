@@ -15,6 +15,7 @@ import * as S from "../styles/styled-components/styled.main";
  * @return {Component} an input field for a form
  */
 const Input = ({
+    className = "",
     input,
     inputName,
     type,
@@ -26,7 +27,7 @@ const Input = ({
     <>
         {textarea ? (
             <S.TextArea
-                className={input.isValid ? "" : "invalid"}
+                className={input.isValid ? className : className + " invalid"}
                 type={type}
                 placeholder={placeholder}
                 value={input.value}
@@ -35,7 +36,7 @@ const Input = ({
             />
         ) : (
             <S.Input
-                className={input.isValid ? "" : "invalid"}
+                className={input.isValid ? className : className + " invalid"}
                 type={type}
                 placeholder={placeholder}
                 value={input.value}
@@ -46,13 +47,18 @@ const Input = ({
 
         <S.InputLine />
         <S.InputFocusLine />
-        <S.InvalidInputHelper className={!input.isValid ? "show" : ""}>
+        <S.InvalidInputHelper
+            className={!input.isValid ? className + " show" : className}>
             {invalidTextHelper}
         </S.InvalidInputHelper>
     </>
 );
 
 Input.propTypes = {
+    /**
+     * The HTML class name to pass to the components for CSS styling.
+     */
+    className: PropTypes.string,
     /**
      * The input object which contains information about the input field.
      *

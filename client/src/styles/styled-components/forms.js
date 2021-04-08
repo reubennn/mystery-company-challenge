@@ -68,6 +68,42 @@ export const Input = styled.input.attrs((props) => ({
     margin-bottom: 0.2rem;
     line-height: 1.4;
 
+    /** Styling for the input inside the modal */
+    &.modal {
+        position: relative;
+        display: block;
+        border: 0.1rem solid ${color.grey.tint.neutral};
+        line-height: 2;
+        font-size: 2rem;
+        font-weight: 700;
+        text-align: center;
+        border-radius: 0.2rem;
+        width: 15vw;
+        margin: 0 auto;
+        padding: 0.25rem 0.7rem;
+
+        &::placeholder {
+            color: ${color.grey.tint.neutral};
+        }
+
+        /**
+         * Hide the default arrows.
+         * - Chrome, Safari, Edge, Opera.
+         *
+         * - reference: https://www.w3schools.com/howto/howto_css_hide_arrow_number.asp
+         */
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+        }
+
+        /** Firefox */
+        &[type=number] {
+            -moz-appearance: textfield;
+            }
+    }
+
     &:focus {
         & + ${InputLine} {
             /** Make the bottom-border expand on input focus */
@@ -204,6 +240,11 @@ export const InvalidInputHelper = styled.label.attrs((props) => ({
         margin-top: ${props.after ? "1.5rem" : ""};
         transition: all 0.5s ease-in-out 0s,
                     max-height 0.8s ease-in-out 0s;
+    }
+
+    &.modal {
+        margin-top: 0.5rem;
+        text-align: center;
     }
 `);
 

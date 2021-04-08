@@ -88,6 +88,31 @@ export const Button = styled.button.attrs((props) => ({
         background-color: ${color.blue.darker};
         transition: linear 0.05s;
     }
+
+    &.reveal {
+        margin: 0 auto;
+    }
+
+    /** Close button for the modal */
+    &.close {
+        background-color: ${color.red.neutral};
+        padding: 0.75rem;
+        position: absolute;
+        margin: 0;
+        top: 1rem;
+        right: 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &:hover {
+            background-color: ${color.red.dark};
+        }
+
+        &:active {
+            background-color: ${color.red.darker};
+        }
+    }
 `;
 
 /**

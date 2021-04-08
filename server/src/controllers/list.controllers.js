@@ -12,7 +12,7 @@ import { query } from "../database/query";
  * @param {Object} res HTTP response object
  */
 export const getAllListings = async (req, res) => {
-    query("SELECT created, name FROM users")
+    query("SELECT id, created, name FROM users")
         .then((result, err) => {
             if (err) {
                 res.status(500).json({ error: err });
@@ -100,10 +100,12 @@ export const getMessage = async (req, res) => {
  *
  * - On success, the result is returned from the PostgreSQL database.
  * - If the result rows is not undefined, we know the insert was successful,
- * so we can send a 
+ * so we can send a response back to the client of the success, otherwise
+ * we can send an error as the response.
  *
  * - PostgreSQL INSERT reference: https://www.postgresql.org/docs/9.5/sql-insert.html
- * - RETURNING * command from: https://stackoverflow.com/a/34968553
+ * - RETURNING * command reference: https://stackoverflow.com/a/34968553
+ * - Finding the MAX in a query reference: https://stackoverflow.com/a/5360157
  *
  * @param {Object} req HTTP request object
  * @param {Object} res HTTP response object
@@ -112,13 +114,46 @@ export const addEntry = async (req, res) => {
     /** Destructor the body parameters */
     const { name, email, pin, message } = req.body;
 
+    let nextId;
+    /**
+     * First we need to determine what the next ID will be.
+     * - We need to perform a query to find the maximum ID,
+     * then we know to increment it by one.
+     */
+    await query("SELECT MAX(id) FROM users")
+        .then((result, err) => {
+            if (err) {
+                console.error(err);
+            }
+            /**
+             * Make sure the query returned a valid result.
+             * - If it did, store the maximum ID and increment by one.
+             * - If not, send back error response.
+             */
+            result.rows !== undefined ?
+                nextId = result.rows[0].max + 1 :
+                res.status(500).json({
+                    message: "An error occurred while querying the database",
+                });
+        })
+        .catch((err) => {
+            console.error(err);
+            res.status(500).json({
+                message: "An error occurred while querying the database",
+                error: err,
+            });
+        });
+
+    /** Strings for the PostgreSQL query */
     const DATE_NOW = new Date(Date.now()).toISOString();
-    const COLUMNS = "(name, email, pin, message, created)";
-    const VALUES =
-        `('${name}', '${email}', '${pin}', '${message}', '${DATE_NOW}')`;
+    const COLUMNS = "(id, name, email, pin, message, created)";
+
+    /** Generate the VALUES string with the data */
+    const valuesArr = [nextId, name, email, pin, message, DATE_NOW];
+    const VALUES = "'" + valuesArr.join("', '") + "'";
 
     /** Insert the values into the users table */
-    query(`INSERT INTO users ${COLUMNS} VALUES ${VALUES} RETURNING *`)
+    query(`INSERT INTO users ${COLUMNS} VALUES (${VALUES}) RETURNING *`)
         .then((result, err) => {
             if (err) {
                 res.status(500).json({ error: err });
@@ -133,7 +168,6 @@ export const addEntry = async (req, res) => {
                 }) :
                 res.status(500).json({
                     message: "An error occurred while querying the database",
-                    error: err,
                 });
         })
         .catch((err) => {

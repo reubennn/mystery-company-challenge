@@ -28,6 +28,7 @@ export const TableContainer = styled.div`
 export const Table = styled.table`
     border-collapse: collapse; // Collapse the table borders into single border.
     text-align: center;
+    min-width: 60vw;
 `;
 
 /**
